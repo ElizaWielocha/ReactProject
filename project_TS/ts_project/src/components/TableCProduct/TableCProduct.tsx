@@ -8,11 +8,11 @@ import TableHead from '@mui/material/TableHead/TableHead'; // to samo co <th> w 
 import TableRow from '@mui/material/TableRow/TableRow'; // to samo to <tr> w html
 import TableCell from '@mui/material/TableCell/TableCell'; // to samo co <th> w html
 import TableCRowProduct from './TableCRowProduct';
-import { ProductsList } from '../../App';
+import { ProductsList } from '../../models/ProductsList';
 
-interface TableCProductProps {
+type TableCProductProps = {
     products: ProductsList;
-    product: string;
+    productType: string;
 };
 
 
@@ -27,17 +27,32 @@ const TableCProduct: React.FC<TableCProductProps> = (props) => {
                             <TableCell sx={{maxWidth: 300}} align="center">Name</TableCell>
                             <TableCell align="center">Price</TableCell>
                             <TableCell align="center">Category</TableCell>
+                            {props.productType === '' && <TableCell align="center">Type of product</TableCell>}
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {props.products.map(product => {
-                            if (product.product_type === props.product){
+                            if ( (props.productType !== "") && (props.productType === product.product_type)){
+                                    return (
+                                        <TableCRowProduct 
+                                            key={product.id}
+                                             name={product.name}
+                                             price={product.price}
+                                             category={product.category} 
+                                             product_type={product.product_type}  
+                                             productInput={props.productType}                                    
+                                        />
+                                    );
+                            }
+                            else if (props.productType === "") {
                                 return (
                                     <TableCRowProduct 
-                                        key={product.name}
-                                        name={product.name}
-                                        price={product.price}
-                                        category={product.category}
+                                        key={product.id}
+                                         name={product.name}
+                                         price={product.price}
+                                         category={product.category} 
+                                         product_type={product.product_type}  
+                                         productInput={props.productType}                                    
                                     />
                                 );
                             }

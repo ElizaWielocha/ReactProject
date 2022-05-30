@@ -2,28 +2,29 @@ import React from "react";
 import {useState, useRef} from 'react';
 import { useForm } from "react-hook-form";
 import Button from "@mui/material/Button/Button";
-import Fade from "@mui/material/Fade/Fade";
-import Grid from "@mui/material/Grid/Grid";
 import TextField from "@mui/material/TextField/TextField";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch } from "react";
+import { Product } from '../../models/Product'; 
 
+// otypowanie setBrand i setProduct
 type FormBrandProps = {
     setBrand?: Dispatch<React.SetStateAction<string>>;
-    setProduct?: Dispatch<React.SetStateAction<string>>;
+    setProductType?: Dispatch<React.SetStateAction<string>>;
 };
 
-// klasa funkcyjna 
+
 const FormBrand = (props: FormBrandProps) => {
-  const [inputState, setInputState] = useState(false);
+  const [inputState, setInputState] = useState(false); // jak jest input brand na pewno
 
-  const {register, handleSubmit, formState: {errors}} = useForm();
+  const {register, handleSubmit, formState: {errors}} = useForm<Product>();
 
-  const inputRefBrand = useRef<HTMLInputElement>(); // dzięki Ref teraz poprzez zmienną inputRef mam dostęp do inputu z dołu 
+  // referencje do inputów 
+  const inputRefBrand = useRef<HTMLInputElement>();  
   const inputRefProduct = useRef<HTMLInputElement>();
 
-
+    // sprawdzenie czy inputy nie są puste
   const inputChangeHandler = () => {
-    if ( (inputRefBrand.current?.value !== "") && (inputRefProduct.current?.value !== "") ) {
+    if (inputRefBrand.current?.value !== "") {
       setInputState(true);
     }
     else {
@@ -31,54 +32,44 @@ const FormBrand = (props: FormBrandProps) => {
     }
   }
 
-  const formHandler = (data: { brand: any; }) =>{
-    if ( (inputRefBrand.current?.value !== "") && (inputRefProduct.current?.value !== "") ){
-      if (props.setBrand) {
+  
+  const formHandler = (data: Product ) =>{
+    if ( inputState === true ){
+      if (props.setBrand){ 
           props.setBrand(data.brand);
-        }
-      if (props.setProduct && inputRefProduct.current?.value) {
-          props.setProduct(inputRefProduct.current?.value);
+          if (props.setProductType && inputRefProduct.current?.value) {
+            props.setProductType(inputRefProduct.current?.value);
+          }
         }
     }
   };
 
-
   return (
-    <Fade in={true} timeout={2000}>
-      <form onSubmit={handleSubmit(formHandler)} justify-content="center" page-align="center" data-sx="true">
-        <Grid container spacing={1}>
-          <Grid item xs={12}>
+      <form onSubmit={handleSubmit(formHandler)}>
             <TextField 
               id="brand"
               type="text" 
-              {...register("brand", {required: "required"})}
+              {...register("brand", {required: 'required'})}
               inputRef = {inputRefBrand}
               onChange={inputChangeHandler}
-              variant="outlined"
+              //variant="outlined"
               label="brand"
               inputProps={{ style: {textAlign: "center"} }}
             /> 
-            <TextField 
-              id="product"
+            <TextField
+              id="productType"
               type="text" 
-              {...register("product", {required: "required"})}
+              {...register("product_type", {})}
               inputRef = {inputRefProduct}
               onChange={inputChangeHandler}
-              variant="outlined"
-              label="product"
+              //variant="outlined"
+              label="product type"
               inputProps={{ style: {textAlign: "center"} }}
             /> 
-          </Grid>
-          <Grid item xs={12}>
-            <Button 
-              type="submit" 
-              data-variant ={inputState !== false ? "contained" : "disabled"}>
+            <Button type="submit" >
                 Search
             </Button>
-          </Grid>
-        </Grid>
       </form>
-    </Fade>
   );
 };
 

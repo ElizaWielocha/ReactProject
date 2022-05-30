@@ -1,28 +1,33 @@
+// Imports
 import {useState, useEffect} from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import axios from 'axios';
+
+// Components
 import Header from './components/Header/Header';
 import FormBrand from './components/FormBrand/FormBrand';
 import TableCProduct from './components/TableCProduct/TableCProduct';
-import axios from 'axios';
-import Grid from "@mui/material/Grid";
 import AboutSite from './components/AboutSite/AboutSite';
 import Footer from './components/Footer/Footer';
 
-interface Product {
-  name: string;
-  price: string;
-  category: string;
-  product_type: string;
-}
+// Material UI
+import Grid from "@mui/material/Grid";
 
-export type ProductsList = Product[];
+// Models
+import { Product } from './models/Product';
+import { ProductsList } from './models/ProductsList';
 
-function App() {
-  const [brand, setBrand] = useState('');
-  const [product, setProduct] =  useState('');
-  const [productTypeList, setProductTypeList] = useState<Product[]>([]);
-  const [isFetchingProduct, setIsFetchingProduct] = useState(true);
 
+
+
+const App: React.FC = () => {
+  // UseStates 
+  const [brand, setBrand] = useState(''); // potrzebuje inputu z brand
+  const [productType, setProductType] =  useState(''); // potrzebuje inputu z productType
+  const [productTypeList, setProductTypeList] = useState<Product[]>([]); // potrzebuje listy produktów dla danej marki
+  const [isFetchingProduct, setIsFetchingProduct] = useState(true); // sprawdzenie czy ładuje się czy nie
+
+  // pobieranie danych z API
   useEffect(()=>{
     if(brand){
       axios.get<Product[]>(`http://makeup-api.herokuapp.com/api/v1/products.json?brand=${brand}`)
@@ -34,31 +39,28 @@ function App() {
     }
   }, [brand]);
 
+
+
+
   return <div className="App">
     <BrowserRouter>
-      <Grid container spacing={10}>
-        <Grid item xs={12}>
-          <Header />
-        </Grid>
-
+      <Header />
         <Routes>
+          
           <Route 
             path="/" // url, przy którym mają się wyświetlić elementy w element = komponent Form
             element={ 
-              <Grid item xs={12}>
                 <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                    <FormBrand setBrand={setBrand} setProduct={setProduct} />
-                  </Grid>  
+                  <FormBrand setBrand={setBrand} setProductType={setProductType} /> 
                   {!isFetchingProduct && (
                     <Grid item xs={12}>
-                     <TableCProduct product={product} products={productTypeList}/>
+                     <TableCProduct productType={productType} products={productTypeList}/>
                     </Grid>
                   )}
                 </Grid>
-              </Grid>
             }
           />
+
           <Route
               path="/About"
               element={
@@ -67,13 +69,16 @@ function App() {
                 </Grid>
               }
           />
+
+
         </Routes>
+
         <Grid item xs={12}>
             <Footer />
         </Grid>
         <Grid item xs={12}>
         </Grid>
-      </Grid>
+
     </BrowserRouter>
   </div>
 

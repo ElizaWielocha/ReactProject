@@ -8,14 +8,14 @@ const Footer = () => {
   return (
     <Fade in={true} timeout={2000}>
       <footer data-align="center">
-        <Button variant="outlined">
+        <Button>
           <Link to="/">
             <Typography variant="h2" align="center" sx={{ fontSize: 30 }}>
               Home
             </Typography>
           </Link>
         </Button>
-        <Button variant="outlined">
+        <Button>
           <Link to="/About">
             <Typography variant="h2" align="center" sx={{ fontSize: 30 }}>
               About site
