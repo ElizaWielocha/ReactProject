@@ -24,7 +24,7 @@ const FormBrand = (props: FormBrandProps) => {
 
     // sprawdzenie czy inputy nie są puste
   const inputChangeHandler = () => {
-    if (inputRefBrand.current?.value !== "") {
+    if (inputRefBrand.current?.value !== "" || inputRefProduct.current?.value !== "") {
       setInputState(true);
     }
     else {
@@ -37,19 +37,20 @@ const FormBrand = (props: FormBrandProps) => {
     if ( inputState === true ){
       if (props.setBrand){ 
           props.setBrand(data.brand);
-          if (props.setProductType && inputRefProduct.current?.value) {
-            props.setProductType(inputRefProduct.current?.value);
-          }
-        }
+      }
+      if (props.setProductType && inputRefProduct.current?.value) {
+        props.setProductType(inputRefProduct.current?.value);
+      }
     }
-  };
+  }
+
 
   return (
       <form onSubmit={handleSubmit(formHandler)}>
             <TextField 
               id="brand"
               type="text" 
-              {...register("brand", {required: 'required'})}
+              {...register("brand", {})}
               inputRef = {inputRefBrand}
               onChange={inputChangeHandler}
               //variant="outlined"

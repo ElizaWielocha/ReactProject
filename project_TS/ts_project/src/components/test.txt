@@ -1,0 +1,16 @@
+
+
+<select id='priceFilterOption'>
+              <option value="priceGreater">price greater than</option>
+              <option value="priceLess">price less than</option>
+            </select>
+            <TextField
+              id="priceValue"
+              type="text" 
+              {...register("price", {})}
+              inputRef = {inputRefPrice}
+              onChange={inputChangeHandler}
+              //variant="outlined"
+              label="price"
+              inputProps={{ style: {textAlign: "center"} }}
+            /> 

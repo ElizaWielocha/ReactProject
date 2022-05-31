@@ -25,38 +25,26 @@ const TableCProduct: React.FC<TableCProductProps> = (props) => {
                     <TableHead>
                         <TableRow>
                             <TableCell sx={{maxWidth: 300}} align="center">Name</TableCell>
+                            <TableCell align="center">Brand</TableCell>
                             <TableCell align="center">Price</TableCell>
                             <TableCell align="center">Category</TableCell>
-                            {props.productType === '' && <TableCell align="center">Type of product</TableCell>}
+                            <TableCell align="center">Type of product</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {props.products.map(product => {
-                            if ( (props.productType !== "") && (props.productType === product.product_type)){
                                     return (
                                         <TableCRowProduct 
                                             key={product.id}
+                                            image={product.api_featured_image}
                                              name={product.name}
                                              price={product.price}
                                              category={product.category} 
-                                             product_type={product.product_type}  
-                                             productInput={props.productType}                                    
+                                             product_type={product.product_type}    
+                                             brand={product.brand}                                
                                         />
                                     );
-                            }
-                            else if (props.productType === "") {
-                                return (
-                                    <TableCRowProduct 
-                                        key={product.id}
-                                         name={product.name}
-                                         price={product.price}
-                                         category={product.category} 
-                                         product_type={product.product_type}  
-                                         productInput={props.productType}                                    
-                                    />
-                                );
-                            }
-                        })}
+                            })}
                     </TableBody>
                 </Table>
             </TableContainer>

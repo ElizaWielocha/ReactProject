@@ -7,4 +7,6 @@ export type Product = {
     category: string;
     product_type: string;
     brand: string;
+
+    api_featured_image: string;
   };

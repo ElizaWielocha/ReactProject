@@ -8,16 +8,18 @@ interface TableRowCProductProps {
     price: string;
     category: string;
     product_type: string;
-    productInput: string;
+    brand: string;
+    image: string;
 }
 
 const TableRowCProduct: React.FC<TableRowCProductProps> = (props) => {
     return (
         <TableRow>
-            <TableCell align="left">{props.name}</TableCell>
+            <TableCell align="left"><img alt='product appearance' style={{ width: 150 }} src={props.image} />{props.name}</TableCell>
+            <TableCell align="left">{props.brand}</TableCell>
             <TableCell align="right">{props.price === "0.0" ? <span>unknown price</span> : <span>{props.price}</span>}</TableCell>
             <TableCell align="right">{ props.category === null ? <span>unknown category</span> : <span>{props.category}</span> }</TableCell>
-            {props.productInput === '' && <TableCell align="left">{props.product_type}</TableCell>}
+            <TableCell align="left">{props.product_type}</TableCell>
         </TableRow>
     );
 };

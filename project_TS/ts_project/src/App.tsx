@@ -29,7 +29,15 @@ const App: React.FC = () => {
 
   // pobieranie danych z API
   useEffect(()=>{
-    if(brand){
+    if(brand && productType){
+      axios.get<Product[]>(`http://makeup-api.herokuapp.com/api/v1/products.json?brand=${brand}&product_type=${productType}`)
+      .then(response => {
+        console.log(response.data);
+        setProductTypeList(response.data);
+        setIsFetchingProduct(false);
+      });
+    }
+    if(brand && !productType){
       axios.get<Product[]>(`http://makeup-api.herokuapp.com/api/v1/products.json?brand=${brand}`)
       .then(response => {
         console.log(response.data);
@@ -37,8 +45,15 @@ const App: React.FC = () => {
         setIsFetchingProduct(false);
       });
     }
-  }, [brand]);
-
+    if(productType && !brand){
+      axios.get<Product[]>(`http://makeup-api.herokuapp.com/api/v1/products.json?product_type=${productType}`)
+      .then(response => {
+        console.log(response.data);
+        setProductTypeList(response.data);
+        setIsFetchingProduct(false);
+      });
+    }
+  }, [brand || productType]);
 
 
 
