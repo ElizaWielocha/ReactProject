@@ -24,12 +24,21 @@ const App: React.FC = () => {
   // UseStates 
   const [brand, setBrand] = useState(''); // potrzebuje inputu z brand
   const [productType, setProductType] =  useState(''); // potrzebuje inputu z productType
+  const [priceValue, setPriceValue] = useState('');
+  const [priceFilter , setPriceFilter] = useState('');
   const [productTypeList, setProductTypeList] = useState<Product[]>([]); // potrzebuje listy produktów dla danej marki
   const [isFetchingProduct, setIsFetchingProduct] = useState(true); // sprawdzenie czy ładuje się czy nie
 
   // pobieranie danych z API
   useEffect(()=>{
-    if(brand && productType){
+    let filter = '';
+    if(priceFilter) {
+      if (priceFilter === 'priceGreater') filter = 'price_greater_than';
+      else if (priceFilter === 'priceLess') filter = 'price_less_than';
+    }
+
+
+    if(brand && productType && !priceValue){
       axios.get<Product[]>(`http://makeup-api.herokuapp.com/api/v1/products.json?brand=${brand}&product_type=${productType}`)
       .then(response => {
         console.log(response.data);
@@ -37,7 +46,7 @@ const App: React.FC = () => {
         setIsFetchingProduct(false);
       });
     }
-    if(brand && !productType){
+    if(brand && !productType && !priceValue){
       axios.get<Product[]>(`http://makeup-api.herokuapp.com/api/v1/products.json?brand=${brand}`)
       .then(response => {
         console.log(response.data);
@@ -45,7 +54,7 @@ const App: React.FC = () => {
         setIsFetchingProduct(false);
       });
     }
-    if(productType && !brand){
+    if(productType && !brand && !priceValue){
       axios.get<Product[]>(`http://makeup-api.herokuapp.com/api/v1/products.json?product_type=${productType}`)
       .then(response => {
         console.log(response.data);
@@ -53,7 +62,15 @@ const App: React.FC = () => {
         setIsFetchingProduct(false);
       });
     }
-  }, [brand || productType]);
+    if(productType && priceValue){
+      axios.get<Product[]>(`http://makeup-api.herokuapp.com/api/v1/products.json?product_type=${productType}&${filter}=${priceValue}`)
+      .then(response => {
+        console.log(response.data);
+        setProductTypeList(response.data);
+        setIsFetchingProduct(false);
+      });
+    }
+  }, [brand || productType || priceValue || priceFilter]);
 
 
 
@@ -66,7 +83,7 @@ const App: React.FC = () => {
             path="/" // url, przy którym mają się wyświetlić elementy w element = komponent Form
             element={ 
                 <Grid container spacing={2}>
-                  <FormBrand setBrand={setBrand} setProductType={setProductType} /> 
+                  <FormBrand setBrand={setBrand} setProductType={setProductType} setPriceValue={setPriceValue} setPriceFilter={setPriceFilter}/> 
                   {!isFetchingProduct && (
                     <Grid item xs={12}>
                      <TableCProduct productType={productType} products={productTypeList}/>

@@ -10,6 +10,8 @@ import { Product } from '../../models/Product';
 type FormBrandProps = {
     setBrand?: Dispatch<React.SetStateAction<string>>;
     setProductType?: Dispatch<React.SetStateAction<string>>;
+    setPriceValue?: Dispatch<React.SetStateAction<string>>;
+    setPriceFilter?: Dispatch<React.SetStateAction<string>>;
 };
 
 
@@ -21,6 +23,7 @@ const FormBrand = (props: FormBrandProps) => {
   // referencje do inputów 
   const inputRefBrand = useRef<HTMLInputElement>();  
   const inputRefProduct = useRef<HTMLInputElement>();
+  const inputRefPrice = useRef<HTMLInputElement>();
 
     // sprawdzenie czy inputy nie są puste
   const inputChangeHandler = () => {
@@ -40,6 +43,10 @@ const FormBrand = (props: FormBrandProps) => {
       }
       if (props.setProductType && inputRefProduct.current?.value) {
         props.setProductType(inputRefProduct.current?.value);
+      }
+      if (props.setPriceValue && inputRefPrice.current?.value && props.setPriceFilter){
+        props.setPriceValue(inputRefPrice.current?.value);
+        props.setPriceFilter( ((document.getElementById("priceFilterOption")) as HTMLSelectElement).value );
       }
     }
   }
@@ -67,7 +74,21 @@ const FormBrand = (props: FormBrandProps) => {
               label="product type"
               inputProps={{ style: {textAlign: "center"} }}
             /> 
-            <Button type="submit" >
+            <select id='priceFilterOption'>
+              <option value="priceGreater">price greater than</option>
+              <option value="priceLess">price less than</option>
+            </select>
+            <TextField
+              id="priceValue"
+              type="text" 
+              {...register("price", {})}
+              inputRef = {inputRefPrice}
+              onChange={inputChangeHandler}
+              //variant="outlined"
+              label="price"
+              inputProps={{ style: {textAlign: "center"} }}
+            /> 
+            <Button type="submit" > 
                 Search
             </Button>
       </form>
