@@ -38,8 +38,32 @@ const App: React.FC = () => {
     }
 
 
+    if(brand && productType && priceValue){
+      axios.get<Product[]>(`http://makeup-api.herokuapp.com/api/v1/products.json?brand=${brand}&product_type=${productType}&${filter}=${priceValue}`)
+      .then(response => {
+        console.log(response.data);
+        setProductTypeList(response.data);
+        setIsFetchingProduct(false);
+      });
+    }
     if(brand && productType && !priceValue){
       axios.get<Product[]>(`http://makeup-api.herokuapp.com/api/v1/products.json?brand=${brand}&product_type=${productType}`)
+      .then(response => {
+        console.log(response.data);
+        setProductTypeList(response.data);
+        setIsFetchingProduct(false);
+      });
+    }
+    if(brand && !productType && priceValue){
+      axios.get<Product[]>(`http://makeup-api.herokuapp.com/api/v1/products.json?brand=${brand}&${filter}=${priceValue}`)
+      .then(response => {
+        console.log(response.data);
+        setProductTypeList(response.data);
+        setIsFetchingProduct(false);
+      });
+    }
+    if(!brand && productType && priceValue){
+      axios.get<Product[]>(`http://makeup-api.herokuapp.com/api/v1/products.json?product_type=${productType}&${filter}=${priceValue}`)
       .then(response => {
         console.log(response.data);
         setProductTypeList(response.data);
@@ -54,7 +78,7 @@ const App: React.FC = () => {
         setIsFetchingProduct(false);
       });
     }
-    if(productType && !brand && !priceValue){
+    if(!brand && productType && !priceValue){
       axios.get<Product[]>(`http://makeup-api.herokuapp.com/api/v1/products.json?product_type=${productType}`)
       .then(response => {
         console.log(response.data);
@@ -62,14 +86,16 @@ const App: React.FC = () => {
         setIsFetchingProduct(false);
       });
     }
-    if(productType && priceValue){
-      axios.get<Product[]>(`http://makeup-api.herokuapp.com/api/v1/products.json?product_type=${productType}&${filter}=${priceValue}`)
+    if(!brand && !productType && priceValue){
+      axios.get<Product[]>(`http://makeup-api.herokuapp.com/api/v1/products.json?${filter}=${priceValue}`)
       .then(response => {
         console.log(response.data);
         setProductTypeList(response.data);
         setIsFetchingProduct(false);
       });
     }
+    
+    
   }, [brand || productType || priceValue || priceFilter]);
 
 

@@ -27,7 +27,7 @@ const FormBrand = (props: FormBrandProps) => {
 
     // sprawdzenie czy inputy nie są puste
   const inputChangeHandler = () => {
-    if (inputRefBrand.current?.value !== "" || inputRefProduct.current?.value !== "") {
+    if (inputRefBrand.current?.value !== "" || inputRefProduct.current?.value !== "" || inputRefPrice.current?.value !== '') {
       setInputState(true);
     }
     else {
