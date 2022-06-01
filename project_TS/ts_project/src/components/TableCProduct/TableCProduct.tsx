@@ -27,7 +27,6 @@ const TableCProduct: React.FC<TableCProductProps> = (props) => {
                             <TableCell sx={{maxWidth: 300}} align="center">Name</TableCell>
                             <TableCell align="center">Brand</TableCell>
                             <TableCell align="center">Price</TableCell>
-                            <TableCell align="center">Category</TableCell>
                             <TableCell align="center">Type of product</TableCell>
                         </TableRow>
                     </TableHead>
@@ -39,7 +38,6 @@ const TableCProduct: React.FC<TableCProductProps> = (props) => {
                                             image={product.api_featured_image}
                                              name={product.name}
                                              price={product.price}
-                                             category={product.category} 
                                              product_type={product.product_type}    
                                              brand={product.brand}                                
                                         />
