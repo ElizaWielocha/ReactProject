@@ -6,14 +6,21 @@ import Slide from '@mui/material/Slide';
 import Fade from '@mui/material/Fade/Fade';
 
 
-// sx= wpisywać tam można style, których nie możemy zaimplementować wcześniej
-const Header = () => {
-    return (
-            <Fade in={true} timeout={2000}>
-                    <Typography variant="h1" align="center" sx={{fontSize: 50}}>
+/*
+<Fade in={true} timeout={2000}>
+                    <Typography data-testId='headerText' variant="h1" align="center" sx={{fontSize: 50}}>
                         Makeup Browser
                     </Typography>
             </Fade>
+*/
+
+const Header = () => {
+    return (
+        <Fade in={true} timeout={2000}>
+            <Typography data-testId='headerText' variant="h1" align="center" sx={{fontSize: 50}}>
+                Makeup Browser
+            </Typography>
+        </Fade>
     );
 };
 

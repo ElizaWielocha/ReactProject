@@ -48,7 +48,7 @@ function AboutSite() {
         
         <>
         <Typography>
-            Welcome to the makeup browser site! You can search by brand, or if you know what product you want, you can search by product.
+        Welcome to the makeup product finder! You can search for your favorite products by brand, product type or both . You can also choose what price range you want the products to be in. Below you will find two lists: A list of available brands and a list of available product types you can search by.
         </Typography>
 
         {loading === false &&

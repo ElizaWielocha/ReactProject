@@ -1,15 +1,9 @@
 import React from 'react';
 import TableRow from '@mui/material/TableRow/TableRow'; // to samo to <tr> w html
 import TableCell from '@mui/material/TableCell/TableCell'; // to samo co <th> w html
+import { TableRowCProductProps } from '../../models/TableRowCProduct';
 
-interface TableRowCProductProps {
-    key: string;
-    name: string;
-    price: string;
-    product_type: string;
-    brand: string;
-    image: string;
-}
+
 
 const TableRowCProduct: React.FC<TableRowCProductProps> = (props) => {
     return (
