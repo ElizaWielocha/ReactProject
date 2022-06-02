@@ -15,21 +15,18 @@ import Grid from "@mui/material/Grid";
 
 // Models
 import { Product } from './models/Product';
-import { ProductsList } from './models/ProductsList';
-
-
 
 
 const App: React.FC = () => {
   // UseStates 
-  const [brand, setBrand] = useState(''); // potrzebuje inputu z brand
-  const [productType, setProductType] =  useState(''); // potrzebuje inputu z productType
+  const [brand, setBrand] = useState(''); 
+  const [productType, setProductType] =  useState(''); 
   const [priceValue, setPriceValue] = useState('');
   const [priceFilter , setPriceFilter] = useState('');
-  const [productTypeList, setProductTypeList] = useState<Product[]>([]); // potrzebuje listy produktów dla danej marki
-  const [isFetchingProduct, setIsFetchingProduct] = useState(true); // sprawdzenie czy ładuje się czy nie
+  const [productTypeList, setProductTypeList] = useState<Product[]>([]); 
+  const [isFetchingProduct, setIsFetchingProduct] = useState(true);
 
-  // pobieranie danych z API
+  // API data
   useEffect(()=>{
     let filter = '';
     if(priceFilter) {
@@ -94,28 +91,35 @@ const App: React.FC = () => {
         setIsFetchingProduct(false);
       });
     }
-    
-    
+     
   }, [brand || productType || priceValue || priceFilter]);
 
 
 
   return <div className="App">
     <BrowserRouter>
-      <Header />
+    <Grid container spacing={12}>
+      <Grid item xs={12}>
+        <Header />
+      </Grid>
+      
         <Routes>
           
           <Route 
-            path="/" // url, przy którym mają się wyświetlić elementy w element = komponent Form
+            path="/" 
             element={ 
+              <Grid item xs={12}>
                 <Grid container spacing={2}>
+                  <Grid item xs={12}>
                   <FormBrand setBrand={setBrand} setProductType={setProductType} setPriceValue={setPriceValue} setPriceFilter={setPriceFilter}/> 
+                  </Grid>
                   {!isFetchingProduct && (
                     <Grid item xs={12}>
                      <TableCProduct productType={productType} products={productTypeList}/>
                     </Grid>
                   )}
                 </Grid>
+              </Grid>
             }
           />
 
@@ -134,9 +138,7 @@ const App: React.FC = () => {
         <Grid item xs={12}>
             <Footer />
         </Grid>
-        <Grid item xs={12}>
-        </Grid>
-
+    </Grid>
     </BrowserRouter>
   </div>
 

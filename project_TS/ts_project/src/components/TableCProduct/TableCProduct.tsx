@@ -21,13 +21,13 @@ const TableCProduct: React.FC<TableCProductProps> = (props) => {
     return (
         <Fade in={true} timeout={2000}>
             <TableContainer component={Card}>
-                <Table sx={{ minWidth: 650 }} aria-label="table">
+                <Table sx={{ minWidth: 600, borderTop: 1.5, borderBottom: 1.5, borderColor: '#6A2031', fontSize: 16 }} aria-label="table">
                     <TableHead>
-                        <TableRow>
-                            <TableCell sx={{maxWidth: 300}} align="center">Name</TableCell>
-                            <TableCell align="center">Brand</TableCell>
-                            <TableCell align="center">Price</TableCell>
-                            <TableCell align="center">Type of product</TableCell>
+                        <TableRow sx={{borderColor: '#6A2031', bgcolor: '#FBF3F5', color: '#3D0E11' }}>
+                            <TableCell colSpan={2} sx={{minWidth: 200, color: '#3D0E11', borderColor: '#6A2031'}} align="center"><b>Name</b></TableCell>
+                            <TableCell sx={{ borderColor: '#6A2031' }}align="center"><b>Brand</b></TableCell>
+                            <TableCell sx={{ borderColor: '#6A2031' }} align="center"><b>Price</b></TableCell>
+                            <TableCell sx={{ borderColor: '#6A2031' }} align="center"><b>Type of product</b></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

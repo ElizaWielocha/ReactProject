@@ -12,6 +12,8 @@ import TableHead from '@mui/material/TableHead/TableHead'; // to samo co <th> w 
 import TableRow from '@mui/material/TableRow/TableRow'; // to samo to <tr> w html
 import TableCell from '@mui/material/TableCell/TableCell'; // to samo co <th> w html
 import Grid from "@mui/material/Grid";
+import { borders } from '@mui/system';
+
 
 function AboutSite() {
     const [brandList, setBrandList] = useState<Product[]>([]);
@@ -47,18 +49,21 @@ function AboutSite() {
     return (
         
         <>
-        <Typography>
-        Welcome to the makeup product finder! You can search for your favorite products by brand, product type or both . You can also choose what price range you want the products to be in. Below you will find two lists: A list of available brands and a list of available product types you can search by.
+        <Typography justifyContent="center" sx={{ m:2, fontFamily: "sans-serif" }}>
+        <strong>Welcome to the makeup product finder! You can search for your favorite products by brand, product type or both . </strong>
+        </Typography>
+        <Typography sx={{ m:2, fontFamily: "sans-serif" }}>
+        <strong>You can also choose what price range you want the products to be in. <br></br>Below you will find two lists: A list of available brands and a list of available product types you can search by.</strong>
         </Typography>
 
         {loading === false &&
-        <Grid container spacing={2}>
-        <Grid item xs={6}>
-        <TableContainer component={Card}>
-            <Table sx={{ maxWidth: 300 }} aria-label="table">
+        <Grid container spacing={2} justifyContent="left" alignItems="top">
+        <Grid item xs={4}>
+        <TableContainer >
+            <Table sx={{ maxWidth: 250, ml: 5, mt: 5, border: 1, borderBottom: 1.1, borderColor: '#6A2031', fontSize: 16 }} aria-label="table">
                 <TableHead>
-                    <TableRow>
-                        <TableCell sx={{ maxWidth: 300 }} align="center">Brands</TableCell>
+                    <TableRow sx={{borderBottom: 1.1, borderColor: '#6A2031', bgcolor: '#FBF3F5', color: '#3D0E11' }}>
+                        <TableCell sx={{ maxWidth: 300 }} align="center"><strong>Brands</strong></TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -74,12 +79,13 @@ function AboutSite() {
         </TableContainer>
         </Grid>
         
-        <Grid item xs={6}>
-        <TableContainer component={Card}>
-            <Table sx={{ maxWidth: 300 }} aria-label="table">
+        
+        <Grid item xs={4}>
+        <TableContainer>
+            <Table sx={{ maxWidth: 250, ml: 5, mt: 5, border: 1, borderBottom: 1.1, borderColor: '#6A2031', fontSize: 16 }} aria-label="table">
                 <TableHead>
-                    <TableRow>
-                        <TableCell sx={{ maxWidth: 300 }} align="center">Types of products</TableCell>
+                    <TableRow sx={{borderBottom: 1.1, borderColor: '#6A2031', bgcolor: '#FBF3F5', color: '#3D0E11' }} >
+                        <TableCell sx={{ maxWidth: 300 }} align="center"><strong>Types of products</strong></TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
