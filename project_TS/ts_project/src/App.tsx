@@ -38,20 +38,22 @@ const App: React.FC = () => {
       else if (priceFilter === 'priceLess') filter = 'price_less_than';
     }
 
-    if(brand && productType && priceValue) getData = `brand=${brand}&product_type=${productType}&${filter}=${priceValue}`;
-    if(brand && productType && !priceValue) getData = `brand=${brand}&product_type=${productType}`;
-    if(brand && !productType && priceValue) getData = `brand=${brand}&${filter}=${priceValue}`;
-    if(!brand && productType && priceValue) getData = `product_type=${productType}&${filter}=${priceValue}`;
-    if(brand && !productType && !priceValue) getData = `brand=${brand}`;
-    if(!brand && productType && !priceValue) getData = `product_type=${productType}`;
-    if(!brand && !productType && priceValue) getData = `${filter}=${priceValue}`;
+    if(brand && productType && priceValue) { getData = `brand=${brand}&product_type=${productType}&${filter}=${priceValue}`; }
+    if(brand && productType && !priceValue) { getData = `brand=${brand}&product_type=${productType}`; }
+    if(brand && !productType && priceValue) { getData = `brand=${brand}&${filter}=${priceValue}`; }
+    if(!brand && productType && priceValue) { getData = `product_type=${productType}&${filter}=${priceValue}`; }
+    if(brand && !productType && !priceValue) { getData =`brand=${brand}`; }
+    if(!brand && productType && !priceValue) { getData = `product_type=${productType}`; }
+    if(!brand && !productType && priceValue) { getData = `${filter}=${priceValue}`; }
 
-    axios.get<Product[]>(`http://makeup-api.herokuapp.com/api/v1/products.json?${getData}`)
-      .then(response => {
-        console.log(response.data);
-        setProductTypeList(response.data);
-        setIsFetchingProduct(false);
-      });
+    if(getData) {
+      axios.get<Product[]>(`http://makeup-api.herokuapp.com/api/v1/products.json?${getData}`)
+        .then(response => {
+          console.log(response.data);
+          setProductTypeList(response.data);
+          setIsFetchingProduct(false);
+        });
+    }
 
   }, [brand || productType || priceValue || priceFilter]);
 
