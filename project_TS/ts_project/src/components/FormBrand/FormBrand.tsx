@@ -17,7 +17,7 @@ type FormBrandProps = {
 
 
 const FormBrand = (props: FormBrandProps) => {
-  const [inputState, setInputState] = useState(false); // jak jest input brand na pewno
+  const [inputState, setInputState] = useState(false); 
   let value: string = '';
 
   const urlPicture: string = 'https://img.freepik.com/free-photo/day-makeup-set-beauty-products-natural-makeup-white-background-with-copy-space_541595-794.jpg?w=2000';
