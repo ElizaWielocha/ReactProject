@@ -1,5 +1,4 @@
 import React from "react";
-import Fade from '@mui/material/Fade/Fade';
 import Table from '@mui/material/Table/Table'; // to samo co <table> w html
 import TableContainer from '@mui/material/TableContainer/TableContainer'; // owijamy nim nasz table
 import Card from '@mui/material/Card/Card'; // efekt kartki 
@@ -19,7 +18,6 @@ type TableCProductProps = {
 const TableCProduct: React.FC<TableCProductProps> = (props) => {
 
     return (
-        <Fade in={true} timeout={2000}>
             <TableContainer component={Card}>
                 <Table sx={{ minWidth: 600, borderTop: 1.5, borderBottom: 1.5, borderColor: '#6A2031', fontSize: 16 }} aria-label="table">
                     <TableHead>
@@ -46,7 +44,6 @@ const TableCProduct: React.FC<TableCProductProps> = (props) => {
                     </TableBody>
                 </Table>
             </TableContainer>
-        </Fade>
     );
 };
 

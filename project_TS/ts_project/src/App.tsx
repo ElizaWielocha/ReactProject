@@ -17,6 +17,7 @@ import Grid from "@mui/material/Grid";
 import { Product } from './models/Product';
 
 
+
 const App: React.FC = () => {
   // UseStates 
   const [brand, setBrand] = useState(''); 
@@ -25,6 +26,8 @@ const App: React.FC = () => {
   const [priceFilter , setPriceFilter] = useState('');
   const [productTypeList, setProductTypeList] = useState<Product[]>([]); 
   const [isFetchingProduct, setIsFetchingProduct] = useState(true);
+
+  const urlPicture: string = 'https://img.freepik.com/free-photo/day-makeup-set-beauty-products-natural-makeup-white-background-with-copy-space_541595-794.jpg?w=2000';
 
   // API data
   useEffect(()=>{
@@ -111,13 +114,18 @@ const App: React.FC = () => {
               <Grid item xs={12}>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
+                  
                   <FormBrand setBrand={setBrand} setProductType={setProductType} setPriceValue={setPriceValue} setPriceFilter={setPriceFilter}/> 
                   </Grid>
+
                   {!isFetchingProduct && (
                     <Grid item xs={12}>
                      <TableCProduct productType={productType} products={productTypeList}/>
                     </Grid>
                   )}
+
+
+                  
                 </Grid>
               </Grid>
             }
@@ -136,8 +144,9 @@ const App: React.FC = () => {
         </Routes>
 
         <Grid item xs={12}>
-            <Footer />
+        <Footer />
         </Grid>
+
     </Grid>
     </BrowserRouter>
   </div>

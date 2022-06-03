@@ -25,6 +25,8 @@ const FormBrand = (props: FormBrandProps) => {
   const [inputState, setInputState] = useState(false); // jak jest input brand na pewno
   let value: string = '';
 
+  const urlPicture: string = 'https://img.freepik.com/free-photo/day-makeup-set-beauty-products-natural-makeup-white-background-with-copy-space_541595-794.jpg?w=2000';
+
   const {register, handleSubmit, formState: {errors}} = useForm<Product>();
 
   // referencje do inputów 
@@ -63,20 +65,18 @@ const FormBrand = (props: FormBrandProps) => {
     }
   }
 
-/*
-<Select id='priceFilterOption' label="select">
-              <option value="priceGreater">price greater than</option>
-              <option value="priceLess">price less than</option>
-            </Select>
-            */
   return (
       <form onSubmit={handleSubmit(formHandler)}>
-        <Grid container spacing={0} justifyContent="center" alignItems="center" direction="column">
-          <Grid item xs={12} sx={{ mb: 2}} >
+        <Grid container spacing={0} >
+          <Grid item xs={6}>
+            <Grid container spacing={0} justifyContent="center" alignItems="center" direction="column">
+
+          <Grid item xs={12} sx={{ mb: 2}}  >
             <Typography>
               Search, what you whant:
             </Typography>
           </Grid>
+
           <Grid item xs={12} sx={{ mb: 2}} >
             <TextField sx={{ color: "#3D0E11", bgcolor: "#FBF3F5" }}
               id="brand"
@@ -89,8 +89,9 @@ const FormBrand = (props: FormBrandProps) => {
               inputProps={{ style: {textAlign: "center"} }}
             /> 
             </Grid>
-            <Grid item xs={12} sx={{ mb: 2, bgcolor: "#FBF3F5"}}>
-            <TextField 
+
+            <Grid item xs={12} sx={{ mb: 2, bgcolor: "#FBF3F5" }}>
+            <TextField sx={{ color: "#3D0E11", bgcolor: "#FBF3F5" }}
               id="productType"
               type="text" 
               {...register("product_type", {})}
@@ -101,8 +102,8 @@ const FormBrand = (props: FormBrandProps) => {
               inputProps={{ style: {textAlign: "center"} }}
             /> 
             </Grid>
-          <Grid item xs={12} sx={{ mb: 2, ml: -26 }}>
 
+          <Grid item xs={12} sx={{ mb: 2, ml: -26 }}>
           <FormControl sx={{ width: 200 }}>
           <InputLabel sx={{height:34, mt: -1.25}} id="priceFilterOption">select filtering option</InputLabel>
             <Select sx={{ height:34 }} id='priceFilterOption' label="select filtering option" value={value} onChange={handleChange}>
@@ -128,11 +129,19 @@ const FormBrand = (props: FormBrandProps) => {
                 <b>Search</b>
             </Button>
             </Grid>
+            </Grid>
 
+            </Grid>
+            <Grid item xs={6} sx={{ mt: -5, mb: -13} }>
+              <Grid container spacing={0} justifyContent="right" alignItems="right">
+              <img alt="logo" style={{width: 800}} src={urlPicture}/>
+              </Grid>
+            </Grid>
             </Grid>
       </form>
   );
 };
+
 
 
 export default FormBrand;

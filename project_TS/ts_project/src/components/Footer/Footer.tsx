@@ -3,26 +3,29 @@ import { Link } from "react-router-dom";
 import Button from "@mui/material/Button/Button";
 import Typography from "@mui/material/Typography/Typography";
 import Fade from "@mui/material/Fade/Fade";
+import Grid from "@mui/material/Grid";
 
 const Footer = () => {
   return (
     <Fade in={true} timeout={2000}>
-      <footer data-align="center">
-        <Button>
-          <Link to="/">
-            <Typography variant="h2" align="center" sx={{ fontSize: 30 }}>
+      <Grid container spacing={0} sx={{ bgcolor: "#2D1017", pb: 0.5 }}>
+      <footer >
+        <Button variant="text">
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <Typography variant="h2" align="center" sx={{ fontSize: 25, color: "#C8ACB3", fontFamily: "sans-serif" }}>
               Home
             </Typography>
           </Link>
         </Button>
-        <Button>
-          <Link to="/About">
-            <Typography variant="h2" align="center" sx={{ fontSize: 30 }}>
+        <Button variant="text">
+          <Link to="/About" style={{ textDecoration: "none" }}>
+            <Typography variant="h2" align="center" sx={{ fontSize: 25, color: "#C8ACB3", fontFamily: "sans-serif" }}>
               About site
             </Typography>
           </Link>
         </Button>
       </footer>
+      </Grid>
     </Fade>
   );
 };
