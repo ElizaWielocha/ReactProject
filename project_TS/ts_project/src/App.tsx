@@ -27,130 +27,81 @@ const App: React.FC = () => {
   const [productTypeList, setProductTypeList] = useState<Product[]>([]); 
   const [isFetchingProduct, setIsFetchingProduct] = useState(true);
 
-  const urlPicture: string = 'https://img.freepik.com/free-photo/day-makeup-set-beauty-products-natural-makeup-white-background-with-copy-space_541595-794.jpg?w=2000';
 
   // API data
   useEffect(()=>{
-    let filter = '';
+    let filter: string = '';
+    let getData: string = '';
+
     if(priceFilter) {
       if (priceFilter === 'priceGreater') filter = 'price_greater_than';
       else if (priceFilter === 'priceLess') filter = 'price_less_than';
     }
 
+    if(brand && productType && priceValue) getData = `brand=${brand}&product_type=${productType}&${filter}=${priceValue}`;
+    if(brand && productType && !priceValue) getData = `brand=${brand}&product_type=${productType}`;
+    if(brand && !productType && priceValue) getData = `brand=${brand}&${filter}=${priceValue}`;
+    if(!brand && productType && priceValue) getData = `product_type=${productType}&${filter}=${priceValue}`;
+    if(brand && !productType && !priceValue) getData = `brand=${brand}`;
+    if(!brand && productType && !priceValue) getData = `product_type=${productType}`;
+    if(!brand && !productType && priceValue) getData = `${filter}=${priceValue}`;
 
-    if(brand && productType && priceValue){
-      axios.get<Product[]>(`http://makeup-api.herokuapp.com/api/v1/products.json?brand=${brand}&product_type=${productType}&${filter}=${priceValue}`)
+    axios.get<Product[]>(`http://makeup-api.herokuapp.com/api/v1/products.json?${getData}`)
       .then(response => {
         console.log(response.data);
         setProductTypeList(response.data);
         setIsFetchingProduct(false);
       });
-    }
-    if(brand && productType && !priceValue){
-      axios.get<Product[]>(`http://makeup-api.herokuapp.com/api/v1/products.json?brand=${brand}&product_type=${productType}`)
-      .then(response => {
-        console.log(response.data);
-        setProductTypeList(response.data);
-        setIsFetchingProduct(false);
-      });
-    }
-    if(brand && !productType && priceValue){
-      axios.get<Product[]>(`http://makeup-api.herokuapp.com/api/v1/products.json?brand=${brand}&${filter}=${priceValue}`)
-      .then(response => {
-        console.log(response.data);
-        setProductTypeList(response.data);
-        setIsFetchingProduct(false);
-      });
-    }
-    if(!brand && productType && priceValue){
-      axios.get<Product[]>(`http://makeup-api.herokuapp.com/api/v1/products.json?product_type=${productType}&${filter}=${priceValue}`)
-      .then(response => {
-        console.log(response.data);
-        setProductTypeList(response.data);
-        setIsFetchingProduct(false);
-      });
-    }
-    if(brand && !productType && !priceValue){
-      axios.get<Product[]>(`http://makeup-api.herokuapp.com/api/v1/products.json?brand=${brand}`)
-      .then(response => {
-        console.log(response.data);
-        setProductTypeList(response.data);
-        setIsFetchingProduct(false);
-      });
-    }
-    if(!brand && productType && !priceValue){
-      axios.get<Product[]>(`http://makeup-api.herokuapp.com/api/v1/products.json?product_type=${productType}`)
-      .then(response => {
-        console.log(response.data);
-        setProductTypeList(response.data);
-        setIsFetchingProduct(false);
-      });
-    }
-    if(!brand && !productType && priceValue){
-      axios.get<Product[]>(`http://makeup-api.herokuapp.com/api/v1/products.json?${filter}=${priceValue}`)
-      .then(response => {
-        console.log(response.data);
-        setProductTypeList(response.data);
-        setIsFetchingProduct(false);
-      });
-    }
-     
+
   }, [brand || productType || priceValue || priceFilter]);
-
 
 
   return <div className="App">
     <BrowserRouter>
-    <Grid container spacing={12}>
-      <Grid item xs={12}>
-        <Header />
-      </Grid>
+      <Grid container spacing={12}>
+        <Grid item xs={12}>
+          <Header />
+        </Grid>
       
-        <Routes>
+      <Routes>
           
-          <Route 
-            path="/" 
-            element={ 
-              <Grid item xs={12}>
+        <Route 
+          path="/" 
+          element={ 
+            <Grid item xs={12}>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
-                  
-                  <FormBrand setBrand={setBrand} setProductType={setProductType} setPriceValue={setPriceValue} setPriceFilter={setPriceFilter}/> 
+                    <FormBrand setBrand={setBrand} setProductType={setProductType} setPriceValue={setPriceValue} setPriceFilter={setPriceFilter}/> 
                   </Grid>
 
                   {!isFetchingProduct && (
                     <Grid item xs={12}>
-                     <TableCProduct productType={productType} products={productTypeList}/>
+                      <TableCProduct productType={productType} products={productTypeList}/>
                     </Grid>
-                  )}
-
-
-                  
+                  )} 
                 </Grid>
-              </Grid>
-            }
-          />
+            </Grid>
+          }
+        />
 
-          <Route
-              path="/About"
-              element={
-                <Grid item xs={12}>
-                  <AboutSite />
-                </Grid>
-              }
-          />
+        <Route
+          path="/About"
+          element={
+            <Grid item xs={12}>
+              <AboutSite />
+            </Grid>
+          }
+        />
 
+      </Routes>
 
-        </Routes>
-
-        <Grid item xs={12}>
+      <Grid item xs={12}>
         <Footer />
-        </Grid>
+      </Grid>
 
-    </Grid>
+      </Grid>
     </BrowserRouter>
   </div>
-
 
 }
 

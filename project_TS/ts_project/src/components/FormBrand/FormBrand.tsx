@@ -1,10 +1,12 @@
 import React from "react";
 import {useState, useRef} from 'react';
 import { useForm } from "react-hook-form";
+import { Dispatch } from "react";
+
+import { Product } from '../../models/Product'; 
+
 import Button from "@mui/material/Button/Button";
 import TextField from "@mui/material/TextField/TextField";
-import { Dispatch } from "react";
-import { Product } from '../../models/Product'; 
 import Grid from "@mui/material/Grid";
 import Typography from '@mui/material/Typography/';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
@@ -29,12 +31,11 @@ const FormBrand = (props: FormBrandProps) => {
 
   const {register, handleSubmit, formState: {errors}} = useForm<Product>();
 
-  // referencje do inputów 
   const inputRefBrand = useRef<HTMLInputElement>();  
   const inputRefProduct = useRef<HTMLInputElement>();
   const inputRefPrice = useRef<HTMLInputElement>();
 
-    // sprawdzenie czy inputy nie są puste
+
   const inputChangeHandler = () => {
     if (inputRefBrand.current?.value !== "" || inputRefProduct.current?.value !== "" || inputRefPrice.current?.value !== '') {
       setInputState(true);
@@ -66,79 +67,81 @@ const FormBrand = (props: FormBrandProps) => {
   }
 
   return (
-      <form onSubmit={handleSubmit(formHandler)}>
-        <Grid container spacing={0} >
-          <Grid item xs={6}>
-            <Grid container spacing={0} justifyContent="center" alignItems="center" direction="column">
+    <form onSubmit={handleSubmit(formHandler)}>
+      <Grid container spacing={0} >
+        <Grid item xs={6}>
+          <Grid container spacing={0} justifyContent="center" alignItems="center" direction="column">
 
-          <Grid item xs={12} sx={{ mb: 2}}  >
-            <Typography>
-              Search, what you whant:
-            </Typography>
-          </Grid>
+            <Grid item xs={12} sx={{ mb: 2}}  >
+              <Typography sx={{ fontFamily: "sans-serif" }}>
+                <b>Search, what you whant:</b>
+              </Typography>
+            </Grid>
 
-          <Grid item xs={12} sx={{ mb: 2}} >
-            <TextField sx={{ color: "#3D0E11", bgcolor: "#FBF3F5" }}
-              id="brand"
-              type="text" 
-              {...register("brand", {})}
-              inputRef = {inputRefBrand}
-              onChange={inputChangeHandler}
-              variant="standard"
-              placeholder="brand"
-              inputProps={{ style: {textAlign: "center"} }}
-            /> 
+            <Grid item xs={12} sx={{ mb: 2}} >
+              <TextField sx={{ color: "#3D0E11", bgcolor: "#FBF3F5" }}
+                id="brand"
+                type="text" 
+                {...register("brand", {})}
+                inputRef = {inputRefBrand}
+                onChange={inputChangeHandler}
+                variant="standard"
+                placeholder="brand"
+                inputProps={{ style: {textAlign: "center"} }}
+              /> 
             </Grid>
 
             <Grid item xs={12} sx={{ mb: 2, bgcolor: "#FBF3F5" }}>
-            <TextField sx={{ color: "#3D0E11", bgcolor: "#FBF3F5" }}
-              id="productType"
-              type="text" 
-              {...register("product_type", {})}
-              inputRef = {inputRefProduct}
-              onChange={inputChangeHandler}
-              variant="standard"
-              placeholder="product"
-              inputProps={{ style: {textAlign: "center"} }}
-            /> 
+              <TextField sx={{ color: "#3D0E11", bgcolor: "#FBF3F5" }}
+                id="productType"
+                type="text" 
+                {...register("product_type", {})}
+                inputRef = {inputRefProduct}
+                onChange={inputChangeHandler}
+                variant="standard"
+                placeholder="product"
+                inputProps={{ style: {textAlign: "center"} }}
+              /> 
             </Grid>
 
-          <Grid item xs={12} sx={{ mb: 2, ml: -26 }}>
-          <FormControl sx={{ width: 200 }}>
-          <InputLabel sx={{height:34, mt: -1.25}} id="priceFilterOption">select filtering option</InputLabel>
-            <Select sx={{ height:34 }} id='priceFilterOption' label="select filtering option" value={value} onChange={handleChange}>
-              <MenuItem value="priceGreater">price greater than</MenuItem>
-              <MenuItem value="priceLess">price less than</MenuItem>
-            </Select>
-            </FormControl>
+            <Grid item xs={12} sx={{ mb: 2, ml: -26 }}>
+              <FormControl sx={{ width: 200 }}>
+                <InputLabel sx={{height:34, mt: -1.25}} id="priceFilterOption">select filtering option</InputLabel>
+                <Select sx={{ height:34 }} id='priceFilterOption' label="select filtering option" value={value} onChange={handleChange}>
+                  <MenuItem value="priceGreater">price greater than</MenuItem>
+                  <MenuItem value="priceLess">price less than</MenuItem>
+                </Select>
+              </FormControl>
 
-            <TextField sx={{ ml: 1, bgcolor: "#FBF3F5"}}
-              id="priceValue"
-              type="text" 
-              {...register("price", {})}
-              inputRef = {inputRefPrice}
-              onChange={inputChangeHandler}
-              variant="standard"
-              placeholder="value"
-              inputProps={{ style: {textAlign: "center"} }}
-            /> 
+              <TextField sx={{ ml: 1, bgcolor: "#FBF3F5"}}
+                id="priceValue"
+                type="text" 
+                {...register("price", {})}
+                inputRef = {inputRefPrice}
+                onChange={inputChangeHandler}
+                variant="standard"
+                placeholder="value"
+                inputProps={{ style: {textAlign: "center"} }}
+              /> 
             </Grid>
 
             <Grid item xs={12}>
-            <Button variant="contained" type="submit" sx={{ color: '#C8ACB3', bgcolor: "#2D1017", fontFamily: "sans-serif" , mb: 5}}> 
-                <b>Search</b>
-            </Button>
+              <Button variant="contained" type="submit" sx={{ color: '#C8ACB3', bgcolor: "#2D1017", fontFamily: "sans-serif" , mb: 5}}> 
+                  <b>Search</b>
+              </Button>
             </Grid>
-            </Grid>
+          </Grid>
 
-            </Grid>
-            <Grid item xs={6} sx={{ mt: -5, mb: -13} }>
-              <Grid container spacing={0} justifyContent="right" alignItems="right">
-              <img alt="logo" style={{width: 800}} src={urlPicture}/>
-              </Grid>
-            </Grid>
-            </Grid>
-      </form>
+        </Grid>
+
+        <Grid item xs={6} sx={{ mt: -5, mb: -13} }>
+          <Grid container spacing={0} justifyContent="right" alignItems="right">
+            <img alt="logo" style={{width: 800}} src={urlPicture}/>
+          </Grid>
+        </Grid>
+        
+      </Grid>
+    </form>
   );
 };
 

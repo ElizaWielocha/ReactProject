@@ -1,8 +1,9 @@
 import React from 'react';
-import TableRow from '@mui/material/TableRow/TableRow'; // to samo to <tr> w html
-import TableCell from '@mui/material/TableCell/TableCell'; // to samo co <th> w html
+
 import { TableRowCProductProps } from '../../models/TableRowCProduct';
 
+import TableRow from '@mui/material/TableRow/TableRow'; 
+import TableCell from '@mui/material/TableCell/TableCell'; 
 
 
 const TableRowCProduct: React.FC<TableRowCProductProps> = (props) => {
