@@ -1,44 +1,39 @@
 import { render, screen } from "@testing-library/react";
 import AboutSite from "./AboutSite";
-import userEvent from "@testing-library/user-event";
-import axios from 'axios';
-import Typography from '@mui/material/Typography/Typography';
+import axios, { AxiosResponse } from 'axios';
+
 
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
+
 describe('AboutSite component', () => {
 
-    let description: string = 'Welcome to the makeup product finder! You can search for your favorite products by brand, product type or both . You can also choose what price range you want the products to be in. Below you will find two lists: A list of available brands and a list of available product types you can search by.';
-
-    test("checking if description is rendered", () => {
-        render(<AboutSite />);
-        const typographyElement = screen.getByText(description);
-        expect(typographyElement).toBeInTheDocument();
+    test("checking if welcome text is rendered", () => {
+      let documentBody = render(<AboutSite />);
+      expect(documentBody.getByTestId('welcome')).toBeInTheDocument();
     });
 
+    test("checking if description is rendered", () => {
+      let documentBody = render(<AboutSite />);
+      expect(documentBody.getByTestId('description')).toBeInTheDocument();
+    });
 
     
-
-    test('checking if table is rendered', async () => {
-        const { getByText, getAllByRole } = (render(<AboutSite/>));
-
-        // Provide the data object to be returned
-        mockedAxios.get.mockResolvedValue({
-          data: [
-            {
-              brand: "maybelline"
-            },
-            {
-              brand: "Dior"
-            }
-          ],
-        });
-
-        const listItem = await screen.findAllByRole('listitem');
-        expect(listItem).not.toHaveLength(0);
-    })
-
-
+    test('checking if tables from AboutSite are rendered', () => {
+        const getData = [
+          { 
+          id:1047,
+          brand: "colourpop",
+          name: "Blotted Lip",
+          price: "5.5",
+          api_featured_image:"//s3.amazonaws.com/donovanbailey/products/api_featured_images/000/001/047/original/open-uri20180708-4-e7idod?1531087336",
+          category: "lipstick",
+          product_type: "lipstick" 
+        }] ;
+        const res = { data: getData};
+        mockedAxios.get.mockResolvedValue(res as any);
+    });
+  
 })

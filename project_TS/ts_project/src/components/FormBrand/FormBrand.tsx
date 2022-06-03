@@ -5,14 +5,7 @@ import { Dispatch } from "react";
 
 import { Product } from '../../models/Product'; 
 
-import Button from "@mui/material/Button/Button";
-import TextField from "@mui/material/TextField/TextField";
-import Grid from "@mui/material/Grid";
-import Typography from '@mui/material/Typography/';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
+import { Button, TextField, Grid, Typography, Select, SelectChangeEvent, FormControl, InputLabel, MenuItem }  from "@mui/material/";
 
 // otypowanie setBrand i setProduct
 type FormBrandProps = {

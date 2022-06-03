@@ -11,7 +11,7 @@ import AboutSite from './components/AboutSite/AboutSite';
 import Footer from './components/Footer/Footer';
 
 // Material UI
-import Grid from "@mui/material/Grid";
+import { Grid } from "@mui/material/";
 
 // Models
 import { Product } from './models/Product';
@@ -26,6 +26,7 @@ const App: React.FC = () => {
   const [priceFilter , setPriceFilter] = useState('');
   const [productTypeList, setProductTypeList] = useState<Product[]>([]); 
   const [isFetchingProduct, setIsFetchingProduct] = useState(true);
+  const check: boolean = true;
 
 
   // API data
@@ -90,7 +91,7 @@ const App: React.FC = () => {
           path="/About"
           element={
             <Grid item xs={12}>
-              <AboutSite />
+              <AboutSite check={check} />
             </Grid>
           }
         />

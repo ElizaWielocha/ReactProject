@@ -3,13 +3,7 @@ import React from "react";
 import TableCRowProduct from './TableCRowProduct';
 import { ProductsList } from '../../models/ProductsList';
 
-import Table from '@mui/material/Table/Table'; 
-import TableContainer from '@mui/material/TableContainer/TableContainer'; 
-import Card from '@mui/material/Card/Card'; 
-import TableBody from '@mui/material/TableBody/TableBody'; 
-import TableHead from '@mui/material/TableHead/TableHead'; 
-import TableRow from '@mui/material/TableRow/TableRow';
-import TableCell from '@mui/material/TableCell/TableCell'; 
+import { Table, TableContainer, Card, TableBody, TableHead, TableRow, TableCell } from '@mui/material/'; 
 
 
 type TableCProductProps = {

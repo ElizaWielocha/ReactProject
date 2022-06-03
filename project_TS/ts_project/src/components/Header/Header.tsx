@@ -1,9 +1,8 @@
 import React from 'react';
 
-import Typography from '@mui/material/Typography/Typography';
-import AppBar from '@mui/material/AppBar/AppBar';
-import Fade from '@mui/material/Fade/Fade';
-
+import { Typography } from '@mui/material/';
+import { AppBar } from '@mui/material/';
+import { Fade } from '@mui/material/';
 
 
 

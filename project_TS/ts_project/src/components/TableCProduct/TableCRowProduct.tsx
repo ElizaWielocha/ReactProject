@@ -2,8 +2,7 @@ import React from 'react';
 
 import { TableRowCProductProps } from '../../models/TableRowCProduct';
 
-import TableRow from '@mui/material/TableRow/TableRow'; 
-import TableCell from '@mui/material/TableCell/TableCell'; 
+import { TableRow, TableCell }  from '@mui/material/'; 
 
 
 const TableRowCProduct: React.FC<TableRowCProductProps> = (props) => {

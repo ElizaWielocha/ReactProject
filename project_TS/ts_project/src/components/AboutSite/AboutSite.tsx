@@ -1,32 +1,29 @@
 import React from 'react';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
+import { Dispatch } from "react";
 
 import { Product } from '../../models/Product';
 
-import Typography from '@mui/material/Typography/Typography';
-import Table from '@mui/material/Table/Table'; 
-import TableContainer from '@mui/material/TableContainer/TableContainer'; 
-import TableBody from '@mui/material/TableBody/TableBody'; 
-import TableHead from '@mui/material/TableHead/TableHead'; 
-import TableRow from '@mui/material/TableRow/TableRow'; 
-import TableCell from '@mui/material/TableCell/TableCell'; 
-import Grid from "@mui/material/Grid";
+import { Typography, Table, TableContainer, TableBody, TableHead, TableRow, TableCell, Grid } from '@mui/material/'; 
 
+type checkProps = {
+    check?: boolean;
+}
 
-
-function AboutSite() {
+const AboutSite = (props: checkProps ) => {
     const [brandList, setBrandList] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(()=>{
-        axios
-        .get<Product[]>(`http://makeup-api.herokuapp.com/api/v1/products.json?`)
-        .then(response => {
-            console.log(response.data);
-            setBrandList(response.data);
-            setLoading(false);
-        });
+        if(props.check) {
+            axios.get<Product[]>(`http://makeup-api.herokuapp.com/api/v1/products.json?`)
+            .then(response => {
+                console.log(response.data);
+                setBrandList(response.data);
+                setLoading(false);
+            });
+        }
     });
 
 
@@ -49,11 +46,11 @@ function AboutSite() {
     return (
         
         <>
-        <Typography justifyContent="center" sx={{ m:2, fontFamily: "sans-serif" }}>
+        <Typography data-testid="welcome" justifyContent="center" sx={{ m:2, fontFamily: "sans-serif" }}>
             <strong>Welcome to the makeup product finder! You can search for your favorite products by brand, product type or both . </strong>
         </Typography>
 
-        <Typography sx={{ m:2, fontFamily: "sans-serif" }}>
+        <Typography data-testid="description" sx={{ m:2, fontFamily: "sans-serif" }}>
             <strong>You can also choose what price range you want the products to be in. <br></br>Below you will find two lists: A list of available brands and a list of available product types you can search by.</strong>
         </Typography>
 

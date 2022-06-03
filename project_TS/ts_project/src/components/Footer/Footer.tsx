@@ -1,9 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Button from "@mui/material/Button/Button";
-import Typography from "@mui/material/Typography/Typography";
-import Fade from "@mui/material/Fade/Fade";
-import Grid from "@mui/material/Grid";
+import { Button, Typography, Fade, Grid } from "@mui/material/";
 
 const Footer = () => {
   return (
